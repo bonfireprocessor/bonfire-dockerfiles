@@ -1,18 +1,22 @@
 FROM gassettj/papilio-environment-cloud9:latest
 
-RUN apt-get update && apt-get install -y lua5.1 luarocks ssh \
+RUN apt-get update && apt-get install -y lua5.1 luarocks ssh curl \
 && luarocks install luafilesystem  \
 && luarocks install  lpack \
 && luarocks install  md5 \
 && luarocks install  bit32
 
-ADD gnu-mcu-eclipse-riscv-none-gcc-7.2.0-1-20171109-1926-debian64.tgz  /opt
-RUN ln -s /opt/gnu-mcu-eclipse/riscv-none-gcc/7.2.0-1-20171109-1926 /opt/riscv
+RUN  curl -SL https://github.com/gnu-mcu-eclipse/riscv-none-gcc/releases/download/v7.2.0-1-20171109/gnu-mcu-eclipse-riscv-none-gcc-7.2.0-1-20171109-1926-debian64.tgz \
+    | tar -xzC /opt \
+    && ln -s /opt/gnu-mcu-eclipse/riscv-none-gcc/7.2.0-1-20171109-1926 /opt/riscv
 
-RUN apt-get install -y libgnat-4.9
-#ADD ghdl-v0.34-mcode-ubuntu.tgz /opt/ghdl
-ADD ghdl-0.36-mcode-ubuntu16.tgz /opt/ghdl
 
+
+RUN apt-get install -y libgnat-4.9 \
+    && mkdir -p /opt/ghdl  \
+    && curl -SL https://github.com/ghdl/ghdl/releases/download/v0.34/ghdl-v0.34-mcode-ubuntu.tgz \
+    | tar -xzC /opt/ghdl
+    
 
 ENV PATH="${PATH}:/opt/riscv/bin:/opt/ghdl/bin" TARGET_PREFIX="riscv-none-embed"
 
