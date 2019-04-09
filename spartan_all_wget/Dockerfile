@@ -6,9 +6,9 @@ RUN apt-get update && apt-get install -y lua5.1 luarocks ssh curl \
 && luarocks install  md5 \
 && luarocks install  bit32
 
-RUN  curl -SL https://github.com/gnu-mcu-eclipse/riscv-none-gcc/releases/download/v7.2.0-1-20171109/gnu-mcu-eclipse-riscv-none-gcc-7.2.0-1-20171109-1926-debian64.tgz \
+RUN  curl -SL https://github.com/gnu-mcu-eclipse/riscv-none-gcc/releases/download/v7.2.0-2-20180110/gnu-mcu-eclipse-riscv-none-gcc-7.2.0-2-20180111-2230-centos64.tgz \
     | tar -xzC /opt \
-    && ln -s /opt/gnu-mcu-eclipse/riscv-none-gcc/7.2.0-1-20171109-1926 /opt/riscv
+    && ln -s /opt/gnu-mcu-eclipse/riscv-none-gcc/7.2.0-2-20180111-2230 /opt/riscv
 
 
 
